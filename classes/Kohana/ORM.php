@@ -1856,6 +1856,7 @@ class Kohana_ORM extends Model implements serializable {
 
 		return $this;
 	}
+	
 
 	/**
 	 * Creates a new "AND WHERE" condition for the query.
@@ -2127,6 +2128,23 @@ class Kohana_ORM extends Model implements serializable {
 
 		return $this;
 	}
+	
+	/**
+	 * Performs an IN() statement when given either a delimited list or one-dimensional array
+	 *
+	 * @param   mixed   $column  column name or array($column, $alias) or object
+	 * @param   string  $op      logic operator
+	 * @param   mixed   $value   column value
+	 * @return  $this
+	 */
+	public function in($column,$values,$delimiter=','){
+		if(!is_array($values)){
+			$values=explode($delimiter,$values);
+		}
+		return $this->where($column,'=',$values);
+		
+	}
+	
 
 	/**
 	 * Alias of and_having()
