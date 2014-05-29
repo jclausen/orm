@@ -832,7 +832,34 @@ class Kohana_ORM extends Model implements serializable {
 
 		return $object;
 	}
-
+	
+	/**
+	 * Creates a key/value array from all of the objects available. Uses find_all
+	 * to find the objects.
+	 *
+	 * @param   string  value column
+	 * @param   string  [key] column (_primary_key)
+	 * @return  array
+	 */
+	public function select_list($val,$key = NULL)
+	{
+		if ($key === NULL)
+		{
+			$key=$this->_primary_key;
+			$index = $this->_object_name.'.'.$this->_primary_key;
+		}
+	
+		$results=$this->select($val)->find_all();
+		$select_list=array();
+		foreach($results as $result){
+			$result=$result->as_array();
+			$select_list[$result[$key]]=$result[$val];
+		}
+		// Return a select list from the results
+		return $select_list;
+	}
+	
+	
 	/**
 	 * Binds another one-to-one object to this model.  One-to-one objects
 	 * can be nested using 'object1:object2' syntax
