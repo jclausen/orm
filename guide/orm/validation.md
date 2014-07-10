@@ -47,7 +47,7 @@ All models automatically validate their own data when `ORM::save()`, `ORM::updat
 		}
 		catch (ORM_Validation_Exception $e)
 		{
-			$errors = $e->errors();
+			$errors = $e->errors('default');
 		}
 	}
 
